@@ -17,13 +17,13 @@ namespace TrybeHotel.Controllers
         // 2. Desenvolva o endpoint GET /city
         [HttpGet]
         public IActionResult GetCities(){
-            throw new NotImplementedException();
+            return Ok(_repository.GetCities());
         }
 
         // 3. Desenvolva o endpoint POST /city
         [HttpPost]
         public IActionResult PostCity([FromBody] City city){
-            throw new NotImplementedException();
+            return Created("", _repository.AddCity(city));
         }
     }
 }
