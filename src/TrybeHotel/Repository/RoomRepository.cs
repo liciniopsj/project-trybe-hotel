@@ -37,7 +37,31 @@ namespace TrybeHotel.Repository
         // 7. Desenvolva o endpoint POST /room
         public RoomDto AddRoom(Room room)
         {
-            throw new NotImplementedException();
+            _context.Rooms.Add(room);
+            _context.SaveChanges();
+
+            var hotelInfo = _context.Hotels
+                .Where(hotel => hotel.HotelId == room.HotelId)
+                .Select(hotel => new HotelDto
+                {
+                    HotelId = hotel.HotelId,
+                    Name = hotel.Name,
+                    Address = hotel.Address,
+                    CityId = hotel.CityId,
+                    CityName = _context.Cities
+                    .Where(city => city.CityId == hotel.CityId)
+                    .Select(city => city.Name)
+                    .FirstOrDefault()
+                }).FirstOrDefault();
+
+            return new RoomDto
+            {
+                RoomId = room.RoomId,
+                Name = room.Name,
+                Capacity = room.Capacity,
+                Image = room.Image,
+                Hotel = hotelInfo
+            };
         }
 
         // 8. Desenvolva o endpoint DELETE /room/:roomId
