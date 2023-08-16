@@ -14,7 +14,7 @@ namespace TrybeHotel.Repository
         // 6. Desenvolva o endpoint GET /room/:hotelId
         public IEnumerable<RoomDto> GetRooms(int hotelId)
         {
-            var roomsDto = _context.Rooms
+            return _context.Rooms
                 .Where(room => room.HotelId == hotelId)
                 .Select(room => new RoomDto
                 {
@@ -30,9 +30,7 @@ namespace TrybeHotel.Repository
                         CityId = room.Hotel.CityId,
                         CityName = room.Hotel.City.Name
                     }
-                });
-
-            return roomsDto.ToList();
+                }).ToList();
         }
 
 
