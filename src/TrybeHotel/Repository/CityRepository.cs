@@ -30,13 +30,11 @@ namespace TrybeHotel.Repository
             _context.Cities.Add(city);
             _context.SaveChanges();
 
-            var newCity = new CityDto
+            return new CityDto
             {
                 CityId = city.CityId,
                 Name = city.Name
             };
-
-            return newCity;
         }
 
     }
